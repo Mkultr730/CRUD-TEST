@@ -4,5 +4,6 @@ require("dotenv").config();
 export const environment: IEnvironment = {
     databaseHost: process.env.databaseHost,
     databaseUser: process.env.databaseUser,
-    databasePassword: process.env.databasePassword
+    databaseName: process.env.databaseName,
+    databasePassword: process.env.databasePassword,
 }
