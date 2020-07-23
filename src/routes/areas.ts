@@ -4,7 +4,7 @@ import { connection } from '../config/database/mysql';
 const router = express.Router();    
 
 router.get('/', (req, res) => {
-    connection.query('SELECT * FROM users', (err, rows, fields) => {
+    connection.query('SELECT * FROM area', (err, rows, fields) => {
         if(err) throw err;
         res.json(rows)
     });
@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
     const { id } = req.params;
-    connection.query('SELECT * FROM users WHERE id = ?', [id], (err, rows, fields) => {
+    connection.query('SELECT * FROM area WHERE id = ?', [id], (err, rows, fields) => {
         if (err) {
             res.send(err);
         } else if(rows.length === 0){
@@ -25,7 +25,7 @@ router.get('/:id', (req, res) => {
 
 router.delete('/delete/:id', (req, res) => {
     const { id } = req.params;
-    connection.query('DELETE FROM users WHERE id = ?', [id], (err, rows, fields) => {
+    connection.query('DELETE FROM area WHERE id = ?', [id], (err, rows, fields) => {
         if (err) {
             res.send(err);
         } else if(rows.affectedRows < 1) {
@@ -52,7 +52,7 @@ router.patch('/update/:id', (req, res) => {
     update = update.substr(0, update.length-1);
 
     const sql = `
-        UPDATE users 
+        UPDATE area 
         SET ${update}
         WHERE ID = ${id}
     `;
@@ -70,16 +70,16 @@ router.patch('/update/:id', (req, res) => {
 
 
 router.post('/create', (req, res) => {
-    const { name, lastname, birthdate, email, ID, area_ID, salary } = req.body;
+    const { name, ID, leader_ID } = req.body;
     const sql = `
-        INSERT INTO users 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)  
+        INSERT INTO area 
+            VALUES (?, ?, ?, ?)  
     `;
-    connection.query(sql, [name, lastname, birthdate, email, ID, area_ID, salary, 0], 
+    connection.query(sql, [ID, name, leader_ID, 0], 
         (err, rows, fields) => {
             if(err) {
                 if (err.errno === 1062) {
-                    res.send('User already exists')
+                    res.send('Area already exists')
                 }
             } 
             res.send(rows);
@@ -87,4 +87,4 @@ router.post('/create', (req, res) => {
 });
 
 
-export const usersRouter = router;
+export const areasRouter = router;

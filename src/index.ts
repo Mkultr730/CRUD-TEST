@@ -1,5 +1,7 @@
 import { connection } from './config/database/mysql';
 import { usersRouter } from './routes/usuarios'
+import { areasRouter } from './routes/areas';
+
 import express, {Express} from 'express';
 const app: Express = express()
 
@@ -17,3 +19,4 @@ connection.connect((err) => {
 });
 
 app.use('/users', usersRouter);
+app.use('/areas', areasRouter);
