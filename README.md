@@ -18,6 +18,7 @@ Next, for the database here's the script to generate the tables ([script](https:
 Postman
 ```bash
 http://localhost:8100/users
+http://localhost:8100/users/:id
 http://localhost:8100/users/create
 http://localhost:8100/users/delete
 http://localhost:8100/users/update/:id
@@ -26,6 +27,7 @@ http://localhost:8100/users/update/:id
 
 ```bash
 http://localhost:8100/areas
+http://localhost:8100/areas/:id
 http://localhost:8100/areas/create
 http://localhost:8100/areas/delete
 http://localhost:8100/areas/update/:id
